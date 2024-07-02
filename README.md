@@ -7,3 +7,4 @@
   - I did not realize they meant literally move the whole playRound() declaration inside playGame()
     - This workflow is strange coming from a Java background so I did not realize that is what the instructions meant! I only realized it after looking at some solutions
     - Oh well! The app still works haha
+- EDIT: Ok I like to do things properly. I fixed the misunderstood step!
