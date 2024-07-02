@@ -1,6 +1,3 @@
-let humanScore = 0;
-let computerScore = 0;
-
 function getHumanChoice() {
     return prompt("Please enter rock, paper, or scissors");
 }
@@ -19,58 +16,74 @@ function getComputerChoice() {
     }
 }
 
+// Return 1 if human wins and -1 if human lost
 function playRound(humanChoice, computerChoice) {
     humanChoice = humanChoice.toLowerCase();
     let losingMessage = `You lose! ${computerChoice} beats ${humanChoice}`;
     let winningMessage = `You win! ${humanChoice} beats ${computerChoice}`;
     let tieMessage = `You tied! You both picked ${humanChoice}`;
-    let returnMessage;
-    if (humanChoice === "rock") {
+    let resultMessage;
+    let resultValue = 0;
+    if (humanChoice === computerChoice) {
+        resultMessage = tieMessage;
+    } else if (humanChoice === "rock") {
         switch (computerChoice) {
-            case "rock":
-                returnMessage = tieMessage;
-                break;
             case "paper":
-                returnMessage = losingMessage;
-                computerScore++;
+                resultMessage = losingMessage;
+                resultValue = -1;
                 break;
             default:
-                returnMessage = winningMessage;
-                humanScore++;
+                // computerChoice: scissors
+                resultMessage = winningMessage;
+                resultValue = 1;
         }
     } else if (humanChoice === "paper") {
         switch (computerChoice) {
             case "rock":
-                returnMessage = winningMessage;
-                humanScore++;
-                break;
-            case "paper":
-                returnMessage = tieMessage;
+                resultMessage = winningMessage;
+                resultValue = 1;
                 break;
             default:
-                returnMessage = losingMessage;
-                computerScore++;
+                // computerChoice: scissors
+                resultMessage = losingMessage;
+                resultValue = -1;
         }
     } else {
         // humanChoice == "scissors" || human entered invalid text
         switch (computerChoice) {
             case "rock":
-                returnMessage = losingMessage;
-                computerScore++;
-                break;
-            case "paper":
-                returnMessage = winningMessage;
-                humanScore++;
+                resultMessage = losingMessage;
+                resultValue = -1;
                 break;
             default:
-                returnMessage = tieMessage;
+                // computerChoice: paper
+                resultMessage = winningMessage;
+                resultValue = 1;
         }
     }
-    console.log(returnMessage);
+    console.log(resultMessage);
+    return resultValue;
+}
+
+function playGame() {
+    let humanScore = 0;
+    // Play 5 rounds
+    for (let i = 0; i < 5; i++) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+        humanScore += playRound(humanSelection, computerSelection);
+    }
+    if (humanScore > 0) {
+        let winningMessage = "Congratulations! You win";
+        console.log(winningMessage);
+    } else if (humanScore < 0) {
+        let losingMessage = "Oh no you lost. Better luck next time!";
+        console.log(losingMessage);
+    } else {
+        let tieMessage = "You tied!";
+        console.log(tieMessage);
+    }
 }
 
 // execution section
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
+playGame();
