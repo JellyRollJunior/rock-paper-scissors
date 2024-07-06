@@ -66,12 +66,6 @@ function playGame() {
     console.log(resultMessage);
   }
 
-  // Play 5 rounds of rock paper scissors
-  for (let i = 0; i < 5; i++) {
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
-  }
   if (humanScore > computerScore) {
     let winningMessage = "Congratulations! You win";
     console.log(winningMessage);
