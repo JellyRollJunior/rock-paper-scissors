@@ -28,6 +28,11 @@ function playGame() {
 let humanScore = 0;
 let computerScore = 0;
 
+function displayRoundResult(message) {
+  const resultDisplay = document.querySelector(".round-result");
+  resultDisplay.textContent = message;
+}
+
 function playRound(humanChoice, computerChoice) {
   humanChoice = humanChoice.toLowerCase();
   let losingMessage = `You lose! ${computerChoice} beats ${humanChoice}`;
@@ -57,7 +62,7 @@ function playRound(humanChoice, computerChoice) {
         // computerChoice: scissors
         resultMessage = losingMessage;
         computerScore++
-    }h
+    }
   } else {
     // humanChoice == "scissors" || human entered invalid text
     switch (computerChoice) {
@@ -71,9 +76,11 @@ function playRound(humanChoice, computerChoice) {
         humanScore++
     }
   }
+  displayRoundResult(resultMessage)
   console.log(resultMessage);
 }
 
+// execution secton
 const body = document.querySelector("body");
 body.addEventListener("click", (event) => {
   let target = event.target;
