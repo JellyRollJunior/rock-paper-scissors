@@ -61,30 +61,41 @@ function playRound(humanChoice, computerChoice) {
       default:
         // computerChoice: scissors
         resultMessage = losingMessage;
-        computerScore++
+        computerScore++;
     }
   } else {
     // humanChoice == "scissors" || human entered invalid text
     switch (computerChoice) {
       case "rock":
         resultMessage = losingMessage;
-        computerScore++
+        computerScore++;
         break;
       default:
         // computerChoice: paper
         resultMessage = winningMessage;
-        humanScore++
+        humanScore++;
     }
   }
-  displayRoundResult(resultMessage)
+  displayRoundResult(resultMessage);
   console.log(resultMessage);
+}
+
+function updateScore() {
+  // Do not change winner message once the score increments past 5
+  if (humanScore >= 5 && computerScore >= 5) return;
+  let scoreMessage =
+    humanScore >= 5 ? "Human wins!"
+      : computerScore >= 5 ? "Computer wins!"
+      : `Human score: ${humanScore} - Computer score: ${computerScore}`;
+  const scoreboard = document.querySelector(".scoreboard");
+  scoreboard.textContent = scoreMessage;
 }
 
 // execution secton
 const body = document.querySelector("body");
 body.addEventListener("click", (event) => {
   let target = event.target;
-  switch(target.id) {
+  switch (target.id) {
     case "rock":
       playRound("rock", getComputerChoice());
       break;
@@ -100,4 +111,5 @@ body.addEventListener("click", (event) => {
     default:
       playRound("scissors", getComputerChoice());
   }
+  updateScore();
 });
